@@ -4,5 +4,8 @@ Debug kata images.
 
 ```
 mkdir -p ./mnt
-img_file=
+# copy or add link the images to `./kata-containers.img`
+ln -s ... ./kata-containers.img
+./mnt_up.sh
+./mnt_down.sh
 ```
