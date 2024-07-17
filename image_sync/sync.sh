@@ -3,7 +3,7 @@
 set -e
 
 IMAGE_LIST_FILE="images.txt"
-DEST_REGISTRY="10.20.1.103"
+TARGET="registry/project"
 
 # 读取镜像列表文件
 if [ ! -f "$IMAGE_LIST_FILE" ]; then
@@ -18,7 +18,8 @@ while IFS= read -r IMAGE; do
 
     IMAGE_NAME=$(echo "$IMAGE" | cut -d: -f1)
     IMAGE_TAG=$(echo "$IMAGE" | cut -d: -f2)
-    NEW_IMAGE="$DEST_REGISTRY/$IMAGE_NAME:$IMAGE_TAG"
+    BASE_NAME=$(echo "$IMAGE_NAME" | awk -F/ '{print $(NF)}')
+    NEW_IMAGE="$TARGET/$BASE_NAME:$IMAGE_TAG"
     echo "Tagging $IMAGE as $NEW_IMAGE"
     docker tag "$IMAGE" "$NEW_IMAGE"
 
